@@ -1,0 +1,101 @@
+body {
+    font-family: "Merriweather Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.create-account-container {
+    max-width: 400px;
+    margin: 100px auto;
+    background-color: #fff;
+    border-radius: 25px;
+    padding: 20px;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.5); /* Initial box-shadow set to 0 */
+    transition: box-shadow 0.3s ease; /* Add transition for box-shadow property */
+}
+
+.create-account-container:hover {
+    box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.5); /* Box-shadow appears on hover */
+    transition: transform 0.7s ease;
+    transform: scale(1.01);
+}
+
+.create-account-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 60px; 
+    height: auto;
+}
+
+.logo-name {
+    font-size: 24px; 
+    font-weight: bold;
+    color: #01324b;
+    margin-top: 5px; 
+}
+
+.create-account-form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.fullname-input,
+.email-input,
+.password-input,
+.contact-input {
+    width: calc(100% - 40px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 60px;
+    margin-top: 10px;
+    transition: transform 0.5s ease; /* Add transition for transform property */
+}
+
+.fullname-input:focus,
+.email-input:focus,
+.password-input:focus,
+.contact-input:focus {
+    transform: scale(1.09); /* Scale up when input is focused */
+}
+
+.create-account-button {
+    width: calc(100% - 40px);
+    padding: 10px;
+    background-color: #01324b;
+    color: #fff;
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.create-account-button:hover {
+    background-color: rgb(68, 131, 213);
+    transition: transform 0.5s ease;
+    transform: scale(1.04);
+}
+
+.or-divider {
+    margin: 20px 0;
+    text-align: center;
+    font-size: 18px;
+    color: #777;
+}
+
+.login-options {
+    text-align: center;
+}
+
+.login-link {
+    color: #01324b;
+    text-decoration: none;
+}
+
+.login-link:hover {
+    color: #0056b3;
+}

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 
 const SignInForm = () => {
@@ -8,13 +8,14 @@ const SignInForm = () => {
     const formData = new FormData(event.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+    const accountType = formData.get("accountType") as string;
 
     fetch("http://localhost:5000/api/auth/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, accountType }),
     })
       .then((response) => {
         if (response.ok) {
@@ -23,10 +24,10 @@ const SignInForm = () => {
             alert(data.message);
 
             // Save User details in local storage
-            localStorage.setItem("user", JSON.stringify(data.user));
+            localStorage.setItem("user", JSON.stringify(data));
 
-            // Redirect to home page
-            window.location.href = "/";
+            // Redirect
+            window.location.href = data.redirect;
           });
         } else {
           let res = response.json();
@@ -40,9 +41,37 @@ const SignInForm = () => {
       });
   };
 
+  useEffect(() => {
+    let user = localStorage.getItem("user");
+    if (user) {
+      window.location.href = "/";
+    }
+  });
+
   return (
     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form className="space-y-6" method="POST" onSubmit={handleSubmit}>
+        <div>
+          <label
+            htmlFor="accountType"
+            className="block text-sm font-medium leading-6 text-gray-900"
+          >
+            Select User Type
+          </label>
+          <div className="mt-2">
+            <select
+              id="accountType"
+              name="accountType"
+              required
+              className="block w-full rounded-md border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#01324b] sm:text-sm sm:leading-6"
+            >
+              <option value="reader">Reader</option>
+              <option value="author">Author</option>
+              <option value="reviewer">Reviewer</option>
+            </select>
+          </div>
+        </div>
+
         <div>
           <label
             htmlFor="email"

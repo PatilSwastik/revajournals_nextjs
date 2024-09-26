@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { cn } from "@/app/lib/utils";
 import "./globals.css";
-import { Providers } from "./providers";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -39,11 +38,9 @@ export default function RootLayout({
           fontBody.variable
         )}
       >
-        <Providers>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </Providers>
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );

@@ -1,7 +1,12 @@
 "use client";
 import React from "react";
 import "@/app/css/about_us.css";
-import { Accordion, AccordionItem } from "@nextui-org/react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const page = () => {
   const domains = [
@@ -66,19 +71,20 @@ const page = () => {
                 science and Engineering including multidisciplinary branches,
                 and various interdisciplinary aspects.
               </p>
-              <Accordion variant="bordered" className="p-0">
-                <AccordionItem
-                  key="1"
-                  aria-label="Accordion 1"
-                  title="Disciplines"
-                >
-                  {domains.map((domain, index) => {
-                    return (
-                      <h3 className="text-xl font-bold" key={index}>
-                        {domain.name}
-                      </h3>
-                    );
-                  })}
+              <Accordion type="single" collapsible className="w-full p-0">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger className="font-medium text-xl">
+                    Disciplines
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    {domains.map((domain, index) => {
+                      return (
+                        <h3 className="text-xl font-bold" key={index}>
+                          {domain.name}
+                        </h3>
+                      );
+                    })}
+                  </AccordionContent>
                 </AccordionItem>
               </Accordion>
             </div>

@@ -1,17 +1,19 @@
+"use client";
 import Image from "next/image";
 import "@/app/css/index.css";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function Home() {
   const forAuthors = [
     {
       title: "Indexing",
-      description: "Find in-depth information about Next.js features and API.",
+      description: "",
       href: "forauthors/indexing",
     },
     {
       title: "Publishing Information",
-      description: "Learn about Next.js in an interactive course with quizzes!",
+      description: "",
       href: "forauthors/publishing",
     },
     {
@@ -21,23 +23,32 @@ export default function Home() {
     },
     {
       title: "Language Editing Services",
-      description:
-        "Instantly deploy your Next.js site to a shareable URL with Vercel.",
+      description: "",
       href: "forauthors/language_edit_services",
     },
     {
       title: "Funding & Open Access Fees",
-      description:
-        "Instantly deploy your Next.js site to a shareable URL with Vercel.",
+      description: "",
       href: "forauthors/funding",
     },
     {
       title: "Contact Us",
-      description:
-        "Instantly deploy your Next.js site to a shareable URL with Vercel.",
+      description: "",
       href: "forauthors/contact",
     },
   ];
+
+  useEffect(() => {
+    let user = localStorage.getItem("user");
+    if (!user) {
+      window.location.href = "/auth/signin";
+      return;
+    }
+
+    if (JSON.parse(user).userType === "reviewer") {
+      window.location.href = "/dashboard/reviewer";
+    }
+  }, []);
 
   return (
     <>
@@ -57,7 +68,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
                 <Link
-                  href="#"
+                  href="/submitmanuscript"
                   className="inline-flex h-10 items-center justify-center rounded-md bg-[#01324b] px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-[#01324b]/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                   prefetch={false}
                 >
@@ -149,14 +160,14 @@ export default function Home() {
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
               <Link
-                href="#"
+                href="/submitmanuscript"
                 className="inline-flex h-10 items-center justify-center rounded-md bg-[#01324b] px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-[#01324b]/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 prefetch={false}
               >
                 Publish Now
               </Link>
               <Link
-                href="#"
+                href="/about"
                 className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-[#01324b] hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 prefetch={false}
               >

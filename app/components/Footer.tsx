@@ -11,14 +11,14 @@ const Footer = () => {
             </h3>
             <ul className="flex flex-col gap-4 md:flex-row lg:gap-8 justify-around">
               <li className="">
-                <a className=" text-sm" href="#">
+                <Link className=" text-sm" href="/submitmanuscript">
                   Publish your research
-                </a>
+                </Link>
               </li>
               <li className="">
-                <a className=" text-sm" href="#">
+                <Link className=" text-sm" href="/forauthors/publishing">
                   Open access publishing
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -28,19 +28,19 @@ const Footer = () => {
             </h3>
             <ul className="flex flex-col gap-4 md:flex-row lg:gap-8 justify-around">
               <li className="">
-                <a className="  text-sm" href="#">
+                <Link className="  text-sm" href="#">
                   Our products
-                </a>
+                </Link>
               </li>
               <li className="">
-                <a className=" text-sm" href="#">
+                <Link className=" text-sm" href="#">
                   Societies
-                </a>
+                </Link>
               </li>
               <li className="">
-                <a className=" text-sm" href="#">
+                <Link className=" text-sm" href="#">
                   Partners and advertisers
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

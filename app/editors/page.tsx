@@ -70,7 +70,7 @@ const page = () => {
       <div className=" p-4">
         <ul
           role="list"
-          className="divide-y grid grid-cols-2 gap-4 w-full divide-gray-100"
+          className="divide-y grid grid-cols-1 gap-4 w-full divide-gray-100"
         >
           {editors.map((editor, index) => (
             <li

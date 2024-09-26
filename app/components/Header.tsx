@@ -9,6 +9,16 @@ import {
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { User, LogOut } from "lucide-react";
 import Link from "next/link";
 
 const Header = () => {
@@ -24,12 +34,15 @@ const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [user, setUser] = useState(false);
+  const [name, setName] = useState("");
 
   function SearchFunc() {
     if (query === "") {
       setSearchOpen(!searchOpen);
     } else {
-      console.log(query);
+      // Redirect to search page
+      window.location.href = `/search?q=${query}`;
+
       // Serach Functionality
       setSearchOpen(!searchOpen);
     }
@@ -41,6 +54,8 @@ const Header = () => {
     if (user) {
       // Redirect to home page
       setUser(true);
+      let short_name = String(JSON.parse(user).username);
+      setName(short_name);
     }
   }, []);
 
@@ -78,7 +93,7 @@ const Header = () => {
             <div className="hidden lg:ml-8 lg:flex items-center gap-10 lg:self-stretch">
               <Link
                 className="inline-flex h-10 items-center justify-center rounded-md bg-[#01324b] px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-[#01324b]/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                href="#"
+                href="/submitmanuscript"
               >
                 Submit Manuscript
               </Link>
@@ -98,17 +113,50 @@ const Header = () => {
             <div className="ml-auto flex items-center">
               {/* Auth */}
               {user ? (
-                <button
-                  onClick={() => {
-                    let res = confirm("Are you sure you want to logout?");
-                    if (res) {
-                      localStorage.removeItem("user");
-                      setUser(false);
-                    }
-                  }}
-                >
-                  Logout
-                </button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className="relative h-8 w-8 rounded-full"
+                    >
+                      <Avatar className="h-8 w-8">
+                        <AvatarFallback>
+                          {name.split(" ")[0][0]}
+                          {name.split(" ")[1][0]}
+                        </AvatarFallback>
+                      </Avatar>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56" align="end" forceMount>
+                    <DropdownMenuItem className="flex items-center">
+                      <User className="mr-2 h-4 w-4" />
+                      <span>{name}</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href="/profile/edit"
+                        className="cursor-pointer flex w-full items-center"
+                      >
+                        <User className="mr-2 h-4 w-4" />
+                        <span>Edit Profile</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onSelect={() => {
+                        let res = confirm("Are you sure you want to logout?");
+                        if (res) {
+                          localStorage.removeItem("user");
+                          setUser(false);
+                          window.location.href = "/";
+                        }
+                      }}
+                    >
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Log out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               ) : (
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                   <Link

@@ -9,8 +9,15 @@ const SignUpForm = () => {
     const formData = new FormData(event.currentTarget);
     const username = formData.get("username") as string;
     const email = formData.get("email") as string;
+    const accountType = formData.get("accountType") as string;
     const password = formData.get("password") as string;
     const cpassword = formData.get("cpassword") as string;
+
+    const validAccountTypes = ["reader", "author", "reviewer"];
+    if (!validAccountTypes.includes(accountType)) {
+      alert("Invalid account type");
+      return;
+    }
 
     if (password !== cpassword) {
       alert("Passwords do not match");
@@ -22,7 +29,7 @@ const SignUpForm = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, email, password }),
+      body: JSON.stringify({ username, email, password, accountType }),
     })
       .then((response) => {
         if (response.ok) {
@@ -78,6 +85,26 @@ const SignUpForm = () => {
               required
               className="block w-full rounded-md border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#01324b] sm:text-sm sm:leading-6"
             />
+          </div>
+        </div>
+        <div>
+          <label
+            htmlFor="accountType"
+            className="block text-sm font-medium leading-6 text-gray-900"
+          >
+            Select User Type
+          </label>
+          <div className="mt-2">
+            <select
+              id="accountType"
+              name="accountType"
+              required
+              className="block w-full rounded-md border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#01324b] sm:text-sm sm:leading-6"
+            >
+              <option value="reader">Reader</option>
+              <option value="author">Author</option>
+              <option value="reviewer">Reviewer</option>
+            </select>
           </div>
         </div>
 

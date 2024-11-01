@@ -182,6 +182,7 @@ export default function page() {
         </CardContent>
       </Card>
 
+      {/* Add Taxes 18 % */}
       <Card>
         <CardHeader className="flex flex-row justify-between">
           <CardTitle>APC Fees</CardTitle>

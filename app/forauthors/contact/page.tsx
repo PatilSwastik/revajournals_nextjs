@@ -24,6 +24,8 @@ export default function page() {
     event.preventDefault();
     // Handle form submission logic here
     console.log("Form submitted");
+
+    // Receiver Email : em@revajournals.in
   };
 
   return (
@@ -85,11 +87,11 @@ export default function page() {
             <CardContent className="space-y-4">
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-muted-foreground" />
-                <span>support@revajournals.com</span>
+                <span>em@revajournals.in</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-muted-foreground" />
-                <span>+91 </span>
+                <span>022 3186 3655</span>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="h-5 w-5 text-muted-foreground" />

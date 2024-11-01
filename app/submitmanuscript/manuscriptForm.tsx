@@ -274,6 +274,8 @@ const ManuscriptForm = () => {
       return;
     }
 
+    // check author position and process to payment
+
     // Send the data to the server
     let token = JSON.parse(localStorage.getItem("user") || "").token;
     let DataToSend = {

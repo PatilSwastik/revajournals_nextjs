@@ -3,7 +3,19 @@ import React, { useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Calendar,
+  Bookmark,
   BookOpen,
   Download,
   FileText,
@@ -18,7 +30,6 @@ import PaperContent from "./PaperContent";
 
 const PaperFormat = ({ paperId }: { paperId: string }) => {
   const [isOpenAccess, setOpenAccess] = React.useState(false);
-
   const toggleAccess = () => {
     setOpenAccess(!isOpenAccess);
   };
@@ -248,21 +259,147 @@ const PaperFormat = ({ paperId }: { paperId: string }) => {
                       <div className="flex items-center">
                         <FileText className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
                         <span className="text-sm text-gray-600 dark:text-gray-400">
-                          Published in:
+                          Published in: {paper.journal_name}
                         </span>
                       </div>
                       <div className="flex items-center">
                         <BookOpen className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
                         <span className="text-sm text-gray-600 dark:text-gray-400">
                           Volume: {paper.volume_id}, Issue: {paper.issue_id},
-                          Pages:
+                          Pages: {paper.page_range}
                         </span>
                       </div>
                       <div className="flex items-center">
                         <Users className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
+                        {/* Dynamic Citations */}
                         <span className="text-sm text-gray-600 dark:text-gray-400">
-                          Citations:
+                          Citations: {paper.citations || 0}
                         </span>
+                      </div>
+                      <div>
+                        <Dialog>
+                          <DialogTrigger>cite this article</DialogTrigger>
+                          <DialogContent>
+                            <DialogHeader>
+                              <DialogTitle>Cite this article</DialogTitle>
+                            </DialogHeader>
+
+                            <Card className="max-w-3xl mx-auto">
+                              <CardHeader>
+                                <CardTitle className="text-2xl font-bold">
+                                  About this article
+                                </CardTitle>
+                              </CardHeader>
+                              <CardContent className="space-y-6">
+                                <div className="flex items-start space-x-4">
+                                  <Bookmark className="w-6 h-6 text-gray-400" />
+                                  <div className="space-y-2">
+                                    <h2 className="text-xl font-semibold">
+                                      Cite this article
+                                    </h2>
+                                    <p className="text-sm text-gray-600">
+                                      {paper.authors
+                                        .map((auth: any) => auth.name)
+                                        .join(", ")}
+                                      , {paper.paper_title},{" "}
+                                      {paper.journal_name}, Volume{" "}
+                                      {paper.volume_id}( Issue {paper.issue_id}
+                                      ), {paper.page_range} ({paper.year}).
+                                    </p>
+                                    <Button
+                                      variant="outline"
+                                      size="sm"
+                                      className="mt-2"
+                                      onClick={() => {
+                                        navigator.clipboard.writeText(
+                                          `${paper.authors
+                                            .map((auth: any) => auth.name)
+                                            .join(", ")}, ${
+                                            paper.paper_title
+                                          }, ${paper.journal_name}, Volume ${
+                                            paper.volume_id
+                                          }( Issue ${paper.issue_id}), ${
+                                            paper.page_range
+                                          } (${paper.year}).`
+                                        );
+
+                                        alert("Citation copied to clipboard.");
+                                      }}
+                                    >
+                                      <Download className="mr-2 h-4 w-4" />{" "}
+                                      Download citation
+                                    </Button>
+                                  </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                  <div>
+                                    <h3 className="font-semibold mb-2">
+                                      Received
+                                    </h3>
+                                    <p className="text-sm text-gray-600 flex items-center">
+                                      <Calendar className="mr-2 h-4 w-4" /> 26
+                                      June 2023
+                                    </p>
+                                  </div>
+                                  <div>
+                                    <h3 className="font-semibold mb-2">
+                                      Revised
+                                    </h3>
+                                    <p className="text-sm text-gray-600 flex items-center">
+                                      <Calendar className="mr-2 h-4 w-4" /> 09
+                                      January 2024
+                                    </p>
+                                  </div>
+                                  <div>
+                                    <h3 className="font-semibold mb-2">
+                                      Accepted
+                                    </h3>
+                                    <p className="text-sm text-gray-600 flex items-center">
+                                      <Calendar className="mr-2 h-4 w-4" /> 28
+                                      March 2024
+                                    </p>
+                                  </div>
+                                  <div>
+                                    <h3 className="font-semibold mb-2">
+                                      Published
+                                    </h3>
+                                    <p className="text-sm text-gray-600 flex items-center">
+                                      <Calendar className="mr-2 h-4 w-4" /> 22
+                                      April 2024
+                                    </p>
+                                  </div>
+                                </div>
+
+                                <div>
+                                  <h3 className="font-semibold mb-2">DOI</h3>
+                                  <a
+                                    href={paper.doi || paperId}
+                                    className="text-sm text-blue-600 hover:underline"
+                                  >
+                                    {paper.doi || "No DOI"}
+                                  </a>
+                                </div>
+
+                                <div>
+                                  <h3 className="font-semibold mb-2">
+                                    Keywords
+                                  </h3>
+                                  <div className="flex flex-wrap gap-2">
+                                    {keywords.map((keyword, index) => (
+                                      <Badge variant={"secondary"} key={index}>
+                                        {keyword}
+                                      </Badge>
+                                    ))}
+                                  </div>
+                                </div>
+                              </CardContent>
+                            </Card>
+                            <DialogFooter>
+                              <Button>Copy Citation</Button>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
                       </div>
                     </div>
                     <Separator className="my-4" />
@@ -292,7 +429,7 @@ const PaperFormat = ({ paperId }: { paperId: string }) => {
                           Views
                         </span>
                         <span className="text-sm text-gray-900 dark:text-gray-100">
-                          1,234
+                          {paper.views}
                         </span>
                       </div>
                       <div className="flex justify-between">
@@ -300,15 +437,7 @@ const PaperFormat = ({ paperId }: { paperId: string }) => {
                           Downloads
                         </span>
                         <span className="text-sm text-gray-900 dark:text-gray-100">
-                          567
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                          Altmetric Score
-                        </span>
-                        <span className="text-sm text-gray-900 dark:text-gray-100">
-                          42
+                          {paper.downloads}
                         </span>
                       </div>
                     </div>

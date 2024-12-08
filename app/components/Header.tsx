@@ -35,6 +35,7 @@ const Header = () => {
   const [query, setQuery] = useState("");
   const [user, setUser] = useState(false);
   const [name, setName] = useState("");
+  const [isAuthor, setIsAuthor] = useState(false);
 
   function SearchFunc() {
     if (query === "") {
@@ -56,6 +57,11 @@ const Header = () => {
       setUser(true);
       let short_name = String(JSON.parse(user).username);
       setName(short_name);
+
+      // Check if user is author
+      if (JSON.parse(user).userType === "author") {
+        setIsAuthor(true);
+      }
     }
   }, []);
 
@@ -86,7 +92,9 @@ const Header = () => {
                   className="max-h-8 lg:max-h-12 w-auto"
                 />
               </Link>
-              <h3 className="mt-0 mb-0 lg:text-2xl font-bold">REVA JOURNALS</h3>
+              <h3 className="mt-0 mb-0 lg:text-2xl font-bold hidden md:block">
+                REVA JOURNALS
+              </h3>
             </div>
 
             {/* Flyout menus */}
@@ -107,6 +115,14 @@ const Header = () => {
                     {page.name}
                   </Link>
                 ))}
+                {isAuthor && (
+                  <Link
+                    href="/dashboard/author"
+                    className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800 hover:border-b-2 hover:border-primary-foreground"
+                  >
+                    Dashboard
+                  </Link>
+                )}
               </div>
             </div>
 
@@ -198,20 +214,6 @@ const Header = () => {
                   />
                 </div>
               </div>
-
-              {/* Cart */}
-              <div className="ml-4 flow-root lg:ml-6 cursor-pointer">
-                <a className="group -m-2 flex items-center p-2">
-                  <ShoppingBagIcon
-                    aria-hidden="true"
-                    className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                  />
-                  <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                    0
-                  </span>
-                  <span className="sr-only">items in cart, view bag</span>
-                </a>
-              </div>
             </div>
 
             {/* Mobile menu */}
@@ -262,6 +264,14 @@ const Header = () => {
                           {page.name}
                         </Link>
                       ))}
+                      {isAuthor && (
+                        <Link
+                          href="/dashboard/author"
+                          className="text-lg font-medium text-gray-700 hover:text-gray-800"
+                        >
+                          Dashboard
+                        </Link>
+                      )}
                     </div>
                   </div>
 

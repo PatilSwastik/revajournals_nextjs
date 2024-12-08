@@ -4,7 +4,7 @@ const PaperContent = ({
   content,
   maxChars = 100,
 }: {
-  content: any;
+  content: string;
   maxChars: number;
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);

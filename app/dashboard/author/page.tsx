@@ -4,6 +4,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -28,29 +29,38 @@ function AuthorDashboard() {
         <Card>
           <CardHeader>
             <CardTitle>Submit a new paper</CardTitle>
-            <CardDescription>
-              Submit a new research paper to one of our journals.
-            </CardDescription>
           </CardHeader>
           <CardContent>
-            <Link href="/app/author/submit" className="w-full">
-              Submit Paper
-            </Link>
+            <CardDescription>
+              Submit a new paper to the conference. You can submit multiple
+              papers.
+            </CardDescription>
           </CardContent>
+          <CardFooter>
+            <Button variant={"outline"}>
+              <Link href="/submitmanuscript" className="w-full">
+                Submit Paper
+              </Link>
+            </Button>
+          </CardFooter>
         </Card>
 
         <Card>
           <CardHeader>
             <CardTitle>View your papers</CardTitle>
-            <CardDescription>
-              View the status of your papers and manage your submissions.
-            </CardDescription>
           </CardHeader>
           <CardContent>
-            <Link href="author/submissions" className="w-full">
-              View Papers
-            </Link>
+            <CardDescription>
+              View all the papers you have submitted to the conference.
+            </CardDescription>
           </CardContent>
+          <CardFooter>
+            <Button variant={"outline"}>
+              <Link href="author/submissions" className="w-full">
+                View Papers
+              </Link>
+            </Button>
+          </CardFooter>
         </Card>
       </div>
     </div>

@@ -144,6 +144,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
       <section className="w-full px-4 lg:px-12 py-12 md:py-24 lg:py-32 bg-muted">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">

@@ -185,7 +185,11 @@ export default function ReviewerDashboard() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue="abstract" id="paperDetails">
+            <Tabs
+              defaultValue="abstract"
+              id="paperDetails"
+              key={"paperDetails"}
+            >
               <TabsList>
                 <TabsTrigger value="abstract">Abstract</TabsTrigger>
                 <TabsTrigger value="fullText">Full Text</TabsTrigger>
@@ -198,7 +202,7 @@ export default function ReviewerDashboard() {
               <TabsContent value="fullText">
                 <PaperContent
                   maxChars={300}
-                  content={selectedPaper.paper_content}
+                  content={selectedPaper.paper_content as string}
                 />
               </TabsContent>
             </Tabs>
@@ -346,76 +350,72 @@ export default function ReviewerDashboard() {
 
   function renderPaperList() {
     return (
-      <>
-        <Card>
-          <CardHeader>
-            <CardTitle>Assigned Papers</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {AssignedPapers.length > 0 && (
-              <Tabs defaultValue="Pending">
-                <TabsList>
-                  <TabsTrigger value="Pending">
-                    Pending (
-                    {
-                      AssignedPapers.filter(
-                        (p) =>
-                          p.status === "Pending" || p.status === "submitted"
-                      ).length
-                    }
-                    )
-                  </TabsTrigger>
-                  <TabsTrigger value="Accepted">
-                    Accepted (
-                    {
-                      AssignedPapers.filter(
-                        (p) =>
-                          p.status === "Accepted" || p.status === "published"
-                      ).length
-                    }
-                    )
-                  </TabsTrigger>
-                  <TabsTrigger value="Rejected">
-                    Sent Back (
-                    {
-                      AssignedPapers.filter(
-                        (p) =>
-                          p.status === "Rejected" ||
-                          p.status === "request_changes"
-                      ).length
-                    }
-                    )
-                  </TabsTrigger>
-                </TabsList>
-                <TabsContent value="Pending">
-                  <ScrollArea className="h-[calc(100vh-200px)]">
-                    <FilteredPaperList
-                      papers={AssignedPapers}
-                      status={["Pending", "submitted"]}
-                    />
-                  </ScrollArea>
-                </TabsContent>
-                <TabsContent value="Accepted">
-                  <ScrollArea className="h-[calc(100vh-200px)]">
-                    <FilteredPaperList
-                      papers={AssignedPapers}
-                      status={["Accepted", "published"]}
-                    />
-                  </ScrollArea>
-                </TabsContent>
-                <TabsContent value="Rejected">
-                  <ScrollArea className="h-[calc(100vh-200px)]">
-                    <FilteredPaperList
-                      papers={AssignedPapers}
-                      status={["Rejected", "request_changes"]}
-                    />
-                  </ScrollArea>
-                </TabsContent>
-              </Tabs>
-            )}
-          </CardContent>
-        </Card>
-      </>
+      <Card>
+        <CardHeader>
+          <CardTitle>Assigned Papers</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {AssignedPapers.length > 0 && (
+            <Tabs defaultValue="Pending" id="paper-list" key={"paper-list"}>
+              <TabsList>
+                <TabsTrigger value="Pending">
+                  Pending (
+                  {
+                    AssignedPapers.filter(
+                      (p) => p.status === "Pending" || p.status === "submitted"
+                    ).length
+                  }
+                  )
+                </TabsTrigger>
+                <TabsTrigger value="Accepted">
+                  Accepted (
+                  {
+                    AssignedPapers.filter(
+                      (p) => p.status === "Accepted" || p.status === "published"
+                    ).length
+                  }
+                  )
+                </TabsTrigger>
+                <TabsTrigger value="Rejected">
+                  Sent Back (
+                  {
+                    AssignedPapers.filter(
+                      (p) =>
+                        p.status === "Rejected" ||
+                        p.status === "request_changes"
+                    ).length
+                  }
+                  )
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="Pending">
+                <ScrollArea className="h-[calc(100vh-200px)]">
+                  <FilteredPaperList
+                    papers={AssignedPapers}
+                    status={["Pending", "submitted"]}
+                  />
+                </ScrollArea>
+              </TabsContent>
+              <TabsContent value="Accepted">
+                <ScrollArea className="h-[calc(100vh-200px)]">
+                  <FilteredPaperList
+                    papers={AssignedPapers}
+                    status={["Accepted", "published"]}
+                  />
+                </ScrollArea>
+              </TabsContent>
+              <TabsContent value="Rejected">
+                <ScrollArea className="h-[calc(100vh-200px)]">
+                  <FilteredPaperList
+                    papers={AssignedPapers}
+                    status={["Rejected", "request_changes"]}
+                  />
+                </ScrollArea>
+              </TabsContent>
+            </Tabs>
+          )}
+        </CardContent>
+      </Card>
     );
   }
 

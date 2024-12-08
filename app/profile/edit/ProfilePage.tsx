@@ -56,15 +56,18 @@ export default function ProfilePage() {
     ReviewerDetails.name = userData.username;
 
     // Check if user is already an reviewer
-    fetch("http://localhost:5000/api/auth/validateReviewer", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        token: userData.token,
-      }),
-    })
+    fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/auth/validateReviewer",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token: userData.token,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.isReviewer === true) {
@@ -78,16 +81,19 @@ export default function ProfilePage() {
       });
 
     // Register user as author
-    fetch("http://localhost:5000/api/auth/registerreviewer", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ReviewerDetails: ReviewerDetails,
-        token: userData.token,
-      }),
-    })
+    fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/auth/registerreviewer",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ReviewerDetails: ReviewerDetails,
+          token: userData.token,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.message === "Reviewer registered successfully") {
@@ -111,7 +117,7 @@ export default function ProfilePage() {
     AuthorDetails.name = userData.username;
 
     // Check if user is already an author
-    fetch("http://localhost:5000/api/auth/validateAuthor", {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/auth/validateAuthor", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -133,7 +139,7 @@ export default function ProfilePage() {
       });
 
     // Register user as author
-    fetch("http://localhost:5000/api/auth/registerauthor", {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/auth/registerauthor", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -166,15 +172,18 @@ export default function ProfilePage() {
     let user = JSON.parse(localStorage.getItem("user") || "");
     setUserData(user);
 
-    fetch("http://localhost:5000/api/auth/getAllUserAttributes", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        token: user.token,
-      }),
-    })
+    fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/auth/getAllUserAttributes",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token: user.token,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.isReviewer === true && data.isAuthor === true) {

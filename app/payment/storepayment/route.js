@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
   const body = await req.json();
 
-  await fetch("http://localhost:5000/api/storepayment", {
+  await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/storepayment", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

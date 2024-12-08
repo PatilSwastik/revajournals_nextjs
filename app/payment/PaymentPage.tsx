@@ -13,25 +13,28 @@ const PaymentPage = () => {
 
     try {
       const transactionId = await generateTransactionId();
-      const response = await fetch("http://localhost:5000/api/phonepay/buy", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token: JSON.parse(user).token,
-          payment_type: "subscription",
-          merchantId: "PGTESTPAYUAT",
-          merchantTransactionId: transactionId,
-          merchantUserId: "MUID123",
-          name: JSON.parse(user).username,
-          amount: 10000,
-          mobileNumber: "9999999999",
-          paymentInstrument: {
-            type: "PAY_PAGE",
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/phonepay/buy",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        }),
-      });
+          body: JSON.stringify({
+            token: JSON.parse(user).token,
+            payment_type: "subscription",
+            merchantId: "PGTESTPAYUAT",
+            merchantTransactionId: transactionId,
+            merchantUserId: "MUID123",
+            name: JSON.parse(user).username,
+            amount: 10000,
+            mobileNumber: "9999999999",
+            paymentInstrument: {
+              type: "PAY_PAGE",
+            },
+          }),
+        }
+      );
 
       const data = await response.json();
 

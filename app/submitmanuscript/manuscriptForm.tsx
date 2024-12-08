@@ -295,7 +295,7 @@ const ManuscriptForm = () => {
     formData.append("DataToSend", JSON.stringify(DataToSend));
 
     // Send the data to the server
-    fetch("http://localhost:5000/api/submitfiles", {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/submitfiles", {
       method: "POST",
       body: formData,
     })
@@ -362,7 +362,7 @@ const ManuscriptForm = () => {
       }
       let token = parsedUser.token || "";
       let email = parsedUser.email || "";
-      fetch("http://localhost:5000/api/auth/validate", {
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/auth/validate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

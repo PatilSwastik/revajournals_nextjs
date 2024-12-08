@@ -26,7 +26,7 @@ const AuthorForm = () => {
 
     AuthorDetails.email = JSON.parse(user).email;
 
-    fetch("http://localhost:5000/api/auth/registerauthor", {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/auth/registerauthor", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

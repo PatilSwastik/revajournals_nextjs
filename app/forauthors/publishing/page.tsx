@@ -46,7 +46,7 @@ export default function page() {
     }
 
     // validate user as author
-    fetch("http://localhost:5000/api/auth/validateauthor", {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/auth/validateauthor", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,15 +66,18 @@ export default function page() {
         }
 
         // Check if user is already paid
-        const res = await fetch("http://localhost:5000/api/checkapc", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            token: JSON.parse(user).token,
-          }),
-        });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/checkapc",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              token: JSON.parse(user).token,
+            }),
+          }
+        );
 
         const result = await res.json();
         if (result.subscribed) {
@@ -102,7 +105,7 @@ export default function page() {
 
         const transactionId = await generateTransactionId();
         // Buy APC
-        fetch("http://localhost:5000/api/phonepay/buy", {
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/phonepay/buy", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -96,18 +96,21 @@ export default function ReviewerDashboard() {
     // Update paper status
     if (selectedPaper) {
       // Send updated status to the server
-      fetch("http://localhost:5000/api/reviewer/sendBackPaper", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          article_id: selectedPaper.article_id,
-          status: "request_changes",
-          review: review,
-          token: JSON.parse(localStorage.getItem("user") as string).token,
-        }),
-      })
+      fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/reviewer/sendBackPaper",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            article_id: selectedPaper.article_id,
+            status: "request_changes",
+            review: review,
+            token: JSON.parse(localStorage.getItem("user") as string).token,
+          }),
+        }
+      )
         .then(async (response) => {
           let data = (await response.json()) as { message: string };
 
@@ -128,7 +131,7 @@ export default function ReviewerDashboard() {
   function acceptPaper() {
     if (!selectedPaper) return;
     // Update paper status/
-    fetch("http://localhost:5000/api/reviewer/acceptPaper", {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/reviewer/acceptPaper", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -307,7 +310,7 @@ export default function ReviewerDashboard() {
     let user = localStorage.getItem("user");
     if (!user) return;
 
-    fetch("http://localhost:5000/api/reviewer/papers", {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/reviewer/papers", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

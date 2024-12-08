@@ -77,7 +77,7 @@ const PaperFormat = ({ paperId }: { paperId: string }) => {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/checksubscription",
+        `${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/checksubscription",
         {
           method: "POST",
           headers: {

@@ -36,7 +36,7 @@ const Papers = () => {
   }
 
   function getAllVolumes() {
-    fetch("http://localhost:5000/api/getvolumes")
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/getvolumes")
       .then((response) => response.json())
       .then((data) => {
         setVolumes(data);

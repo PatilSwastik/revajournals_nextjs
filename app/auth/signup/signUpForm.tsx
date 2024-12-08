@@ -24,7 +24,7 @@ const SignUpForm = () => {
       return;
     }
 
-    fetch("http://localhost:5000/api/auth/signup", {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

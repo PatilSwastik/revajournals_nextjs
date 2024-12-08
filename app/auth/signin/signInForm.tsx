@@ -10,7 +10,7 @@ const SignInForm = () => {
     const password = formData.get("password") as string;
     const accountType = formData.get("accountType") as string;
 
-    fetch("http://localhost:5000/api/auth/signin", {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/auth/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

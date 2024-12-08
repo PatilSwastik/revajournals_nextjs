@@ -88,7 +88,7 @@ export default function Submissions() {
       return;
     }
 
-    fetch("http://localhost:5000/api/getpapersbyauthor", {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}` + "/api/getpapersbyauthor", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

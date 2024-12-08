@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -83,50 +83,52 @@ export default function SearchPage() {
         </div>
       </form>
 
-      {results && results.length === 0 ? (
-        <p>No results found. Try a different search term.</p>
-      ) : (
-        <div className="space-y-6">
-          {results &&
-            results.map((paper) => (
-              <Card key={paper.article_id}>
-                <CardHeader>
-                  <CardTitle>{paper.paper_title}</CardTitle>
-                  {/* <CardDescription>{paper.authors.join(", ")}</CardDescription> */}
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {paper.abstract}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {paper.keywords.split(" ").map((keyword, index) => (
-                      <Badge key={index} variant="secondary">
-                        {keyword}
-                      </Badge>
-                    ))}
-                  </div>
-                  <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                    <div className="flex items-center">
-                      <Calendar className="mr-1 h-4 w-4" />
-                      {new Date(paper.published_at).toLocaleDateString()}
+      <Suspense fallback={<div>Loading search...</div>}>
+        {results && results.length === 0 ? (
+          <p>No results found. Try a different search term.</p>
+        ) : (
+          <div className="space-y-6">
+            {results &&
+              results.map((paper) => (
+                <Card key={paper.article_id}>
+                  <CardHeader>
+                    <CardTitle>{paper.paper_title}</CardTitle>
+                    {/* <CardDescription>{paper.authors.join(", ")}</CardDescription> */}
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      {paper.abstract}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {paper.keywords.split(" ").map((keyword, index) => (
+                        <Badge key={index} variant="secondary">
+                          {keyword}
+                        </Badge>
+                      ))}
                     </div>
-                    <div className="flex items-center">
-                      <FileText className="mr-1 h-4 w-4" />
-                      Volume {paper.volume_id}, Issue {paper.issue_id}
+                    <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+                      <div className="flex items-center">
+                        <Calendar className="mr-1 h-4 w-4" />
+                        {new Date(paper.published_at).toLocaleDateString()}
+                      </div>
+                      <div className="flex items-center">
+                        <FileText className="mr-1 h-4 w-4" />
+                        Volume {paper.volume_id}, Issue {paper.issue_id}
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button variant="outline" asChild>
-                    <Link href={`/researchpapers/${paper.article_id}`}>
-                      Read Full Paper
-                    </Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
-        </div>
-      )}
+                  </CardContent>
+                  <CardFooter>
+                    <Button variant="outline" asChild>
+                      <Link href={`/researchpapers/${paper.article_id}`}>
+                        Read Full Paper
+                      </Link>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+          </div>
+        )}
+      </Suspense>
     </div>
   );
 }

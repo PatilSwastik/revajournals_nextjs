@@ -36,6 +36,8 @@ const Header = () => {
   const [user, setUser] = useState(false);
   const [name, setName] = useState("");
   const [isAuthor, setIsAuthor] = useState(false);
+  const [isReviewer, setIsReviewer] = useState(false);
+  const [isEditor, setIsEditor] = useState(false);
 
   function SearchFunc() {
     if (query === "") {
@@ -61,12 +63,16 @@ const Header = () => {
       // Check if user is author
       if (JSON.parse(user).userType === "author") {
         setIsAuthor(true);
+      } else if (JSON.parse(user).userType === "reviewer") {
+        setIsReviewer(true);
+      } else if (JSON.parse(user).userType === "editor") {
+        setIsEditor(true);
       }
     }
   }, []);
 
   return (
-    <header className="header relative text-black">
+    <header className="header relative text-black" id="header">
       <nav aria-label="Top" className="mx-auto px-4">
         <div className="border-b border-gray-200">
           <div className="flex h-16 items-center">
@@ -92,8 +98,8 @@ const Header = () => {
                   className="max-h-8 lg:max-h-12 w-auto"
                 />
               </Link>
-              <h3 className="mt-0 mb-0 lg:text-2xl font-bold hidden md:block">
-                REVA JOURNALS
+              <h3 className="mt-0 mb-0 lg:text-2xl font-bold tracking-tighter hidden md:block">
+                RevaJournals
               </h3>
             </div>
 
@@ -115,9 +121,11 @@ const Header = () => {
                     {page.name}
                   </Link>
                 ))}
-                {isAuthor && (
+                {(isAuthor || isReviewer || isEditor) && (
                   <Link
-                    href="/dashboard/author"
+                    href={`/dashboard/${
+                      isAuthor ? "author" : isReviewer ? "reviewer" : "editor"
+                    }`}
                     className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800 hover:border-b-2 hover:border-primary-foreground"
                   >
                     Dashboard
@@ -234,7 +242,7 @@ const Header = () => {
                         alt="REVA JOURNALS"
                         className="h-12 w-auto"
                       />
-                      <span className="logo-name">REVA JOURNALS</span>
+                      <span className="logo-name">Reva Journals</span>
                     </div>
                     <button
                       type="button"

@@ -48,6 +48,10 @@ export default function Home() {
     if (JSON.parse(user).userType === "reviewer") {
       window.location.href = "/dashboard/reviewer";
     }
+
+    if (JSON.parse(user).userType === "editor") {
+      window.location.href = "/dashboard/editor";
+    }
   }, []);
 
   return (

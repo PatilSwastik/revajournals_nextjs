@@ -1,5 +1,6 @@
 import { fontFamily } from "tailwindcss/defaultTheme";
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 const config: Config = {
   darkMode: ["class"],
@@ -16,8 +17,41 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       fontFamily: {
-        heading: ["var(--font-heading)", ...fontFamily.sans],
+        heading: [
+          "var(--font-heading)",
+          "ui-sans-serif",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI Variable Display",
+          "Segoe UI",
+          "Helvetica",
+          "Apple Color Emoji",
+          "Arial",
+          "sans-serif",
+          "Segoe UI Emoji",
+          "Segoe UI Symbol",
+          "Noto Color Emoji",
+        ],
         body: ["var(--font-body)", ...fontFamily.sans],
+        mono: [
+          "var(--font-mono)",
+          ...require("tailwindcss/defaultTheme").fontFamily.mono,
+        ],
+        sans: [
+          "var(--font-sans)",
+          "ui-sans-serif",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI Variable Display",
+          "Segoe UI",
+          "Helvetica",
+          "Apple Color Emoji",
+          "Arial",
+          "sans-serif",
+          "Segoe UI Emoji",
+          "Segoe UI Symbol",
+          "Noto Color Emoji",
+        ],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -60,6 +94,14 @@ const config: Config = {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+        brand: {
+          DEFAULT: "hsl(var(--brand))",
+          foreground: "hsl(var(--brand-foreground))",
+        },
+        highlight: {
+          DEFAULT: "hsl(var(--highlight))",
+          foreground: "hsl(var(--highlight-foreground))",
+        },
       },
       borderRadius: {
         xl: "`calc(var(--radius) + 4px)`",
@@ -89,8 +131,26 @@ const config: Config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      screens: {
+        "main-hover": {
+          raw: "(hover: hover)",
+        },
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("tailwind-scrollbar-hide"),
+
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        ".transition-bg-ease": {
+          "transition-duration": "20ms",
+          "transition-property": "background-color",
+          "transition-timing-function": "ease-in",
+        },
+      });
+    }),
+  ],
 };
 export default config;

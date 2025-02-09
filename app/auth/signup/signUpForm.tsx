@@ -13,7 +13,7 @@ const SignUpForm = () => {
     const password = formData.get("password") as string;
     const cpassword = formData.get("cpassword") as string;
 
-    const validAccountTypes = ["reader", "author", "reviewer"];
+    const validAccountTypes = ["reader", "author", "reviewer", "editor"];
     if (!validAccountTypes.includes(accountType)) {
       alert("Invalid account type");
       return;

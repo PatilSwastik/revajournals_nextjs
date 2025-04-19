@@ -1,7 +1,6 @@
 "use client";
 import { Toaster } from "sonner";
 
-import { PlateEditor } from "@/components/editor/plate-editor";
 import { useEffect } from "react";
 import PaperList from "./PaperList";
 
@@ -26,7 +25,6 @@ export default function Page() {
       <div className="min-w-[40%] bg-gray-100 p-4">
         <PaperList />
       </div>
-      <PlateEditor />
       <Toaster />
     </div>
   );

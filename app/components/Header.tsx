@@ -145,8 +145,14 @@ const Header = () => {
                     >
                       <Avatar className="h-8 w-8">
                         <AvatarFallback>
-                          {name.split(" ")[0][0]}
-                          {name.split(" ")[1][0]}
+                          {name.includes(" ") ? (
+                            <>
+                              ({name.split(" ")[0][0]}
+                              {name.split(" ")[1][0]})
+                            </>
+                          ) : (
+                            String(name[0]).toUpperCase()
+                          )}
                         </AvatarFallback>
                       </Avatar>
                     </Button>
